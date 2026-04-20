@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Python Practicals | Tiny Buttons</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #f4f7fc;
+      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      padding: 1.2rem;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* header minimal */
+    .header {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .header h1 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #0f2b3d, #1e4a6e);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .header p {
+      font-size: 0.7rem;
+      color: #2c3e50;
+      background: #e9edf2;
+      display: inline-block;
+      padding: 0.2rem 0.9rem;
+      border-radius: 30px;
+      margin-top: 0.3rem;
+    }
+
+    /* ultra compact grid — many small buttons */
+    .micro-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+      gap: 0.6rem;
+      margin-top: 1rem;
+    }
+
+    /* tiny button (chip style) */
+    .micro-btn {
+      background: white;
+      border: 1px solid #cbd5e1;
+      border-radius: 1.2rem;
+      padding: 0.5rem 0.3rem;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      font-family: inherit;
+      text-align: center;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+    }
+
+    .micro-btn:hover {
+      background: #eef2ff;
+      border-color: #3b82f6;
+      transform: translateY(-1px);
+      box-shadow: 0 3px 8px rgba(0,0,0,0.05);
+    }
+
+    .micro-btn:active {
+      transform: translateY(1px);
+    }
+
+    .prac-num {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: #2563eb;
+      background: #eef2ff;
+      display: inline-block;
+      padding: 0.1rem 0.5rem;
+      border-radius: 30px;
+      letter-spacing: 0.2px;
+    }
+
+    .prac-name {
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: #0f172a;
+      margin-top: 0.25rem;
+      white-space: nowrap;
+      overflow-x: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .copy-badge {
+      font-size: 0.55rem;
+      color: #3b82f6;
+      margin-top: 0.2rem;
+      display: flex;
+      justify-content: center;
+      gap: 3px;
+      align-items: center;
+    }
+
+    /* toast */
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%) scale(0.95);
+      background: #0f172ad9;
+      backdrop-filter: blur(12px);
+      color: white;
+      padding: 0.4rem 1rem;
+      border-radius: 40px;
+      font-size: 0.7rem;
+      font-weight: 500;
+      z-index: 1000;
+      opacity: 0;
+      transition: opacity 0.2s, transform 0.2s;
+      pointer-events: none;
+      white-space: nowrap;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 0.65rem;
+      color: #5b6e8c;
+      border-top: 1px solid #cbd5e180;
+      padding-top: 1rem;
+    }
+
+    @media (max-width: 640px) {
+      .micro-grid {
+        grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+        gap: 0.5rem;
+      }
+      .prac-name {
+        font-size: 0.65rem;
+        white-space: normal;
+        word-break: keep-all;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1>🐍 tiny py codes </h1>
+    <p>📋 11 practicals — super small buttons, exact PDF code</p>
+  </div>
+
+  <div class="micro-grid" id="microGrid"></div>
+  <footer>
+    ✅ each button copies full runnable Python code (cleaned, no comments) · original from PDF
+  </footer>
+</div>
+<div id="toastMsg" class="toast">📋 copied!</div>
+
+<script>
+  // ==============================================================
+  // EXACT CODE FROM PDF (cleaned, comments removed, same as original)
+  // ==============================================================
+  const practicals = [
+    {
+      id: 1,
+      shortName: "Arithmetic",
+      code: `import datetime
+
+current_time = datetime.datetime.now()
+print("Name of student:Yaser Mukadam")
+print("Roll no:08 Batch:D1 Branch:Ai4DS")
+print("Current date and time is:", current_time)
+
+num1 = int(input("Enter First number: "))
+num2 = int(input("Enter Second number: "))
+
+add = num1 + num2
+dif = num1 - num2
+mul = num1 * num2
+div = num1 / num2
+floor_div = num1 // num2
+power = num1 ** num2
+modulus = num1 % num2
+
+print("1. Addition:")
+print('Sum of', num1, 'and', num2, 'is :', add)
+
+print("2. Subtraction:")
+print('Difference of', num1, 'and', num2, 'is :', dif)
+
+print("3. Multiplication:")
+print('Product of', num1, 'and', num2, 'is :', mul)
+
+print("4. Division:")
+print('Division of', num1, 'and', num2, 'is :', div)
+
+print("5. Floor Division:")
+print('Floor Division of', num1, 'and', num2, 'is :', floor_div)
+
+print("6. Exponent:")
+print('Exponent of', num1, 'and', num2, 'is :', power)
+
+print("7. Modulus:")
+print('Modulus of', num1, 'and', num2, 'is :', modulus)`
+    },
+    {
+      id: 2,
+      shortName: "Even/Odd",
+      code: `import datetime
+
+current_time = datetime.datetime.now()
+print("Name of student: Atharva Thavle")
+print("Roll no:58 Batch: D1 Branch:AI&Ds")
+print("Current date and time is:", current_time)
+
+while True:
+    number = int(input("Enter a number: "))
+
+    if number % 2 == 0:
+        print(f"{number} is even.")
+    else:
+        print(f"{number} is odd.")
+
+    cont = input("Do you want to check another number? (yes/no): ").strip().lower()
+
+    if cont != 'yes':
+        print("Goodbye!")
+        break`
+    },
+    {
+      id: 3,
+      shortName: "Factorial",
+      code: `import datetime
+
+current_time = datetime.datetime.now()
+print("Name of student: Yaser Mukadam")
+print("Roll no:08 Batch: D1 Branch:AI&Ds")
+print("Current date and time is:", current_time)
+
+while True:
+    num = int(input("Enter the number: "))
+    if num < 0:
+        print("Factorial is not defined for negative numbers.")
+        continue
+    factorial = 1
+    for i in range(1, num + 1):
+        factorial *= i
+    print(f"The factorial of {num} is {factorial}")
+    choice = input("Do you want to check another number? (yes/no): ").strip().lower()
+    if choice not in ['yes', 'y']:
+        print("Goodbye!")
+        break`
+    },
+    {
+      id: 4,
+      shortName: "Prime",
+      code: `import datetime
+
+current_time = datetime.datetime.now()
+print("Name of student :Yaser Mukadam")
+print("Roll no:1111 Batch:D1 Branch:AI&DS")
+print("Current date and time is:", current_time)
+
+def is_prime(number):
+    if number < 2:
+        return False
+    for i in range(2, int(number ** 0.5) + 1):
+        if number % i == 0:
+            return False
+    return True
+
+num = int(input("Enter a number to check if it is prime: "))
+
+if is_prime(num):
+    print(f"{num} is a prime number.")
+else:
+    print(f"{num} is not a prime number.")`
+    },
+    {
+      id: 5,
+      shortName: "Calculator",
+      code: `import datetime
+
+current_time = datetime.datetime.now()
+print("Name of student:Yaser Mukadam")
+print("Roll no:08 Batch:D1 Branch:AI&DS")
+print("Current date and time is:", current_time)
+
+def add(num1, num2):
+    return num1 + num2
+
+def subtract(num1, num2):
+    return num1 - num2
+
+def multiply(num1, num2):
+    return num1 * num2
+
+def divide(num1, num2):
+    return num1 / num2
+
+print("Please select operation - ")
+print("1. Add")
+print("2. Subtract")
+print("3. Multiply")
+print("4. Divide")
+
+for i in range(4):
+    select = int(input("Select operations form 1, 2, 3, 4: "))
+    number_1 = int(input("Enter first number: "))
+    number_2 = int(input("Enter second number: "))
+
+    if select == 1:
+        print(number_1, "+", number_2, "=", add(number_1, number_2))
+    elif select == 2:
+        print(number_1, "- ", number_2, "=", subtract(number_1, number_2))
+    elif select == 3:
+        print(number_1, "*", number_2, "=", multiply(number_1, number_2))
+    elif select == 4:
+        print(number_1, "/", number_2, "=", divide(number_1, number_2))
+    else:
+        print("Invalid input")`
+    },
+    {
+      id: 6,
+      shortName: "File words",
+      code: `import datetime
+
+current_time = datetime.datetime.now()
+print("Name of student:Yaser Mukadam")
+print("Roll no:08 Batch: D1 Branch:AI&Ds")
+print("Current date and time is:", current_time)
+
+word_length = 4
+with open('abcd.txt', 'r') as file:
+    for line in file:
+        for word in line.split():
+            if len(word) == word_length:
+                print(word)`
+    },
+    {
+      id: 7,
+      shortName: "Validate",
+      code: `import datetime
+import re
+
+current_time = datetime.datetime.now()
+print("Name of student: Pandit Yewale")
+print("Roll no:1111 Batch: D1 Branch: AI&DS")
+print("Current date and time is:", current_time)
+
+def validate_phone_number(regex, phone_number):
+    match = re.search(regex, phone_number)
+    if match:
+        return True
+    return False
+
+def validate_email(email):
+    pattern = r'^[\\w\\.-]+@[\\w\\.-]+\\.\\w+$'
+    return re.match(pattern, email) is not None
+
+phone = input("Enter phone number: ")
+email = input("Enter email ID: ")
+
+phone_pattern = re.compile(r"(\\+\\d{1,3})?\\s?\\d{1,4}?[\\s.-]?\\d{3}[\\s.-]?\\d{4}")
+print("Phone valid:", validate_phone_number(phone_pattern, phone))
+print("Email valid:", validate_email(email))`
+    },
+    {
+      id: 8,
+      shortName: "Extract emails",
+      code: `import datetime
+import re
+
+current_time = datetime.datetime.now()
+print("Name of student:Pandit Yewale")
+print("Roll no:1111 Batch:D1 Branch:AI&DS")
+print("Current date and time is:", current_time)
+
+def find_emails(text):
+    patterns = [r'\\S+@\\S+']
+    for pattern in patterns:
+        email_regex = re.compile(pattern)
+        emails = email_regex.findall(text)
+        for email in emails:
+            print(email)
+
+text = "Please send your resumes on Hr@Iwillgetbacktoyou@gmail.com for any business enquiry please mail us on business@enquiry.com and writing.geeksforgeeks.org"
+find_emails(text)`
+    },
+    {
+      id: 9,
+      shortName: "NumPy",
+      code: `import datetime
+import numpy as np
+
+current_time = datetime.datetime.now()
+print("Name of student: Pandit Yewale")
+print("Roll no: 1111 Batch: D1 Branch: AI&DS")
+print("Current date and time is:", current_time)
+
+arr1 = np.array([1, 2, 3, 4, 5])
+print("1D Array:")
+print(arr1)
+
+arr2 = np.array([[1, 2, 3], [4, 5, 6]])
+print("\\n2D Array:")
+print(arr2)
+
+arr3 = np.array([[[1, 2, 3], [4, 5, 6]], [[7, 8, 9], [10, 11, 12]]])
+print("\\n3D Array:")
+print(arr3)
+
+arr = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12])
+newarr2d = arr.reshape(4, 3)
+print("\\nReshaped to 2D:")
+print(newarr2d)
+
+newarr3d = arr.reshape(2, 3, 2)
+print("\\nReshaped to 3D:")
+print(newarr3d)
+
+arr_slice = np.array([1, 2, 3, 4, 5, 6, 7])
+print("\\nSlice [1:5]:", arr_slice[1:5])
+print("Slice [4:]:", arr_slice[4:])
+print("Slice [-3:-1]:", arr_slice[-3:-1])
+
+arr_idx = np.array([1, 2, 3, 4])
+print("\\nFirst element:", arr_idx[0])
+print("Second element:", arr_idx[1])
+print("Third + Fourth:", arr_idx[2] + arr_idx[3])
+
+arr_2d = np.array([[1, 2, 3, 4, 5], [6, 7, 8, 9, 10]])
+print("2nd element on 1st row:", arr_2d[0, 1])
+print("5th element on 2nd row:", arr_2d[1, 4])
+
+arr_3d = np.array([[[1, 2, 3], [4, 5, 6]], [[7, 8, 9], [10, 11, 12]]])
+print("Third element of second array of first array:", arr_3d[0, 1, 2])
+
+arr_last = np.array([[1, 2, 3, 4, 5], [6, 7, 8, 9, 10]])
+print("Last element from 2nd dim:", arr_last[1, -1])`
+    },
+    {
+      id: 10,
+      shortName: "Array Math",
+      code: `import datetime
+import numpy as np
+
+current_time = datetime.datetime.now()
+print("Name of student:Pandit Yewale")
+print("Roll no:1111 Batch:D1 Branch:AI&DS")
+print("Current date and time is:", current_time)
+
+a = np.array([10,20,30])
+b = np.array([2,4,5])
+
+print("Addition:", np.add(a, b))
+print("Subtraction:", np.subtract(a, b))
+print("Multiplication:", np.multiply(a, b))
+print("Division:", np.divide(a, b))
+
+vect_A = np.array([3, -5, 4])
+vect_B = np.array([2, 6, 5])
+
+print("Dot product:", np.dot(vect_A, vect_B))
+print("Cross product:", np.cross(vect_A, vect_B))`
+    },
+    {
+      id: 11,
+      shortName: "Stats",
+      code: `import datetime
+import numpy as np
+
+current_time = datetime.datetime.now()
+print("Name of student: Pandit Yewale")
+print("Roll no:1111 Batch:D1 Branch:AI&DS")
+print("Current date and time is:", current_time)
+
+array = np.arange(10)
+print("Array:", array)
+
+print("Mean:", np.mean(array))
+print("Median:", np.median(array))
+print("Standard Deviation:", np.std(array))
+print("Variance:", np.var(array))
+
+x = np.array([1,2,3,4,5])
+y = np.array([2,4,6,8,10])
+
+corr_matrix = np.corrcoef(x,y)
+print("Correlation Coefficient Matrix:")
+print(corr_matrix)`
+    }
+  ];
+
+  // toast
+  const toast = document.getElementById('toastMsg');
+  let toastTimer = null;
+  function showToast(msg = "📋 copied!") {
+    if (toastTimer) clearTimeout(toastTimer);
+    toast.textContent = msg;
+    toast.style.opacity = "1";
+    toast.style.transform = "translateX(-50%) scale(1)";
+    toastTimer = setTimeout(() => {
+      toast.style.opacity = "0";
+      toast.style.transform = "translateX(-50%) scale(0.95)";
+    }, 1300);
+  }
+
+  async function copyCode(code, pracId) {
+    try {
+      await navigator.clipboard.writeText(code);
+      showToast(`✅ Prac ${pracId} copied`);
+    } catch (err) {
+      const textarea = document.createElement('textarea');
+      textarea.value = code;
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textarea);
+      showToast(`📋 Prac ${pracId} copied`);
+    }
+  }
+
+  const microGrid = document.getElementById('microGrid');
+  practicals.forEach(prac => {
+    const btn = document.createElement('button');
+    btn.className = 'micro-btn';
+    
+    const numSpan = document.createElement('div');
+    numSpan.className = 'prac-num';
+    numSpan.textContent = `#${prac.id}`;
+    
+    const nameSpan = document.createElement('div');
+    nameSpan.className = 'prac-name';
+    nameSpan.textContent = prac.shortName;
+    
+    const copySpan = document.createElement('div');
+    copySpan.className = 'copy-badge';
+    copySpan.innerHTML = `📋 copy`;
+    
+    btn.appendChild(numSpan);
+    btn.appendChild(nameSpan);
+    btn.appendChild(copySpan);
+    
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      copyCode(prac.code, prac.id);
+    });
+    
+    microGrid.appendChild(btn);
+  });
+</script>
+</body>
+</html>
