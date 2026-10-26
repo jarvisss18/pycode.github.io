@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Algorithms Lab - Quick Copy</title>
+    <style>
+        :root {
+            --bg-color: #f4f7f6;
+            --primary: #2c3e50;
+            --accent: #3498db;
+            --success: #27ae60;
+            --text-color: #333;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 30px 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            color: var(--primary);
+            margin-top: 0;
+            margin-bottom: 8px;
+            font-size: 1.5rem;
+            text-align: center;
+        }
+
+        p.subtitle {
+            color: #666;
+            margin-bottom: 25px;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        /* Compact Grid for smaller buttons */
+        .button-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+            gap: 10px;
+            max-width: 600px;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .copy-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 5px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 60px;
+        }
+
+        .copy-btn:hover {
+            background-color: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+
+        .copy-btn:active {
+            transform: translateY(0);
+        }
+
+        .copy-btn.copied {
+            background-color: var(--success);
+        }
+
+        .copy-btn span.small {
+            font-size: 0.65rem;
+            font-weight: normal;
+            margin-top: 3px;
+            opacity: 0.85;
+            text-align: center;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 100%;
+        }
+
+        /* Floating Notification */
+        #toast {
+            visibility: hidden;
+            min-width: 200px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 12px;
+            position: fixed;
+            z-index: 1000;
+            bottom: 20px;
+            font-size: 14px;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.3s, bottom 0.3s;
+        }
+
+        #toast.show {
+            visibility: visible;
+            opacity: 1;
+            bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Algorithms Lab</h1>
+    <p class="subtitle">Click any button to instantly copy the clean code.</p>
+
+    <div class="button-grid" id="button-container">
+        <!-- Buttons will be generated here by JavaScript -->
+    </div>
+
+    <div id="toast">Code Copied!</div>
+
+<script>
+    // Data extracted exactly from the PDF images
+    const practicalsData = {
+        1: { aim: "Selection Sort", rawCode: `#include<stdio.h>
+#include<conio.h>
+void selectionsort(int a[], int n)
+{
+int i, j, temp, min;
+for (i=0; i<n-1; i++)
+{
+min=i;
+for (j=i+1; j<n; j++)
+{
+if (a[j] < a[min])
+{
+min=j;
+}
+}
+temp=a[i];
+a[i]=a[min];
+a[min]=temp;
+}
+}
+int main()
+{
+int a[100], i, n;
+printf("\\n enter no of elements=");
+scanf("%d", &n);
+printf("\\n enter elements=");
+for (i=0; i<n; i++)
+{
+scanf("%d", &a[i]);
+}
+selectionsort(a, n);
+printf("\\n sorted array is:");
+for (i=0; i<n; i++)
+{
+printf(" %d", a[i]);
+}
+return 0;
+}` },
+        2: { aim: "Insertion Sort", rawCode: `#include<stdio.h>
+#include<conio.h>
+void insertionsort(int a[], int n)
+{
+int i, j, temp;
+for (i=1; i<n; i++)
+{
+temp=a[i];
+j=i-1;
+while (j>=0 && a[j]>temp)
+{
+a[j+1]=a[j];
+j--;
+}
+a[j+1]=temp;
+}
+}
+int main()
+{
+int a[100], i, n;
+clrscr();
+printf("\\n enter no of elements=");
+scanf("%d", &n);
+printf("\\n enter elements=");
+for (i=0; i<n; i++)
+{
+scanf("%d", &a[i]);
+}
+insertionsort(a, n);
+printf("\\n sorted array is=");
+for (i=0; i<n; i++)
+{
+printf(" %d", a[i]);
+}
+getch();
+return 0;
+}` },
+        3: { aim: "Quick Sort", rawCode: `#include<stdio.h>
+#include<conio.h>
+void quicksort(int a[], int lb, int ub)
+{
+int start, end, pivot, temp;
+if (lb < ub)
+{
+pivot = a[lb];
+start = lb;
+end = ub;
+while (start < end)
+{
+while (a[start] <= pivot && start < ub)
+{
+start++;
+}
+while (a[end] > pivot)
+{
+end--;
+}
+if (start < end)
+{
+temp = a[start];
+a[start] = a[end];
+a[end] = temp;
+}
+}
+temp = a[lb];
+a[lb] = a[end];
+a[end] = temp;
+quicksort(a, lb, end - 1);
+quicksort(a, end + 1, ub);
+}
+}
+int main()
+{
+int a[100], i, n;
+clrscr();
+printf("\\n enter no of elements = ");
+scanf("%d", &n);
+printf("\\n enter elements = ");
+for (i = 0; i < n; i++)
+{
+scanf("%d", &a[i]);
+}
+quicksort(a, 0, n - 1);
+printf("\\n sorted array is: ");
+for (i = 0; i < n; i++)
+{
+printf("%d ", a[i]);
+}
+getch();
+return 0;
+}` },
+        4: { aim: "Binary Search", rawCode: `#include<stdio.h>
+#include<conio.h>
+int binarysearch(int a[], int n, int key)
+{
+int low=0, high=n-1, mid;
+while (low<=high)
+{
+mid=(low+high)/2;
+if (a[mid]==key)
+{
+return mid;
+}
+else if (key<a[mid])
+{
+high=mid-1;
+}
+else
+{
+low=mid+1;
+}
+}
+return -1;
+}
+int main()
+{
+int a[100], i, n, key, result;
+clrscr();
+printf("\\n enter no of elements=");
+scanf("%d", &n);
+printf("\\n enter elements=");
+for (i=0; i<n; i++)
+{
+scanf("%d", &a[i]);
+}
+printf("\\n enter the element to be searched=");
+scanf("%d", &key);
+result=binarysearch(a, n, key);
+if (result==-1)
+{
+printf("\\n element not found");
+}
+else
+{
+printf("\\n element is found at position=%d", result+1);
+}
+getch();
+return 0;
+}` },
+        5: { aim: "Fractional Knapsack", rawCode: `#include<stdio.h>
+#include<conio.h>
+void knapsack(int n, float w[], float p[], float m)
+{
+float r[100], temp, profit=0;
+int i, j;
+for (i=0; i<n; i++)
+{
+r[i]=p[i]/w[i];
+}
+for (i=0; i<n-1; i++)
+{
+for (j=i+1; j<n; j++)
+{
+if (r[i] < r[j])
+{
+temp=r[i];
+r[i]=r[j];
+r[j]=temp;
+temp=w[i];
+w[i]=w[j];
+w[j]=temp;
+temp=p[i];
+p[i]=p[j];
+p[j]=temp;
+}
+}
+}
+for (i=0; i<n; i++)
+{
+if (w[i] <= m)
+{
+profit=profit+p[i];
+m=m-w[i];
+}
+else
+{
+profit=profit+(p[i]*m/w[i]);
+break;
+}
+}
+printf("\\n maximum profit=%f", profit);
+}
+int main()
+{
+float w[100], p[100], m;
+int i, n;
+clrscr();
+printf("\\n enter no of items=");
+scanf("%d", &n);
+printf("\\n enter weights=");
+for (i=0; i<n; i++)
+{
+scanf("%f", &w[i]);
+}
+printf("\\n enter profits=");
+for (i=0; i<n; i++)
+{
+scanf("%f", &p[i]);
+}
+printf("\\n enter capacity=");
+scanf("%f", &m);
+knapsack(n, w, p, m);
+getch();
+return 0;
+}` },
+        6: { aim: "Kruskal's MST", rawCode: `#include<stdio.h>
+#include<conio.h>
+int parent[100];
+int find(int i)
+{
+while (parent[i] != i)
+i=parent[i];
+return i;
+}
+void kruskal(int n, int cost[100][100])
+{
+int i, j, a, b, u, v, min, ne=0, mincost=0;
+for (i=0; i<n; i++)
+parent[i]=i;
+while (ne<n-1)
+{
+min=9999;
+for (i=0; i<n; i++)
+{
+for (j=0; j<n; j++)
+{
+if (cost[i][j] < min && cost[i][j] != 0)
+{
+min=cost[i][j];
+a=u=i;
+b=v=j;
+}
+}
+}
+u=find(u);
+v=find(v);
+if (u != v)
+{
+printf("\\n edge %d-%d cost=%d", a+1, b+1, min);
+parent[v]=u;
+mincost=mincost+min;
+ne++;
+}
+cost[a][b]=cost[b][a]=9999;
+}
+printf("\\n minimum cost=%d", mincost);
+}
+int main()
+{
+int cost[100][100], i, j, n;
+clrscr();
+printf("\\n enter no of vertices=");
+scanf("%d", &n);
+printf("\\n enter cost matrix (0 for no edge)=");
+for (i=0; i<n; i++)
+{
+for (j=0; j<n; j++)
+{
+scanf("%d", &cost[i][j]);
+}
+}
+kruskal(n, cost);
+getch();
+return 0;
+}` },
+        7: { aim: "Prim's MST", rawCode: `#include<stdio.h>
+#include<conio.h>
+void prim(int cost[100][100], int n)
+{
+int visited[100], i, j, a, b, min, ne=0, mincost=0;
+for (i=0; i<n; i++)
+visited[i]=0;
+visited[0]=1;
+while (ne<n-1)
+{
+min=9999;
+for (i=0; i<n; i++)
+{
+if (visited[i] == 1)
+{
+for (j=0; j<n; j++)
+{
+if (visited[j] == 0 && cost[i][j] != 0 && cost[i][j] < min)
+{
+min=cost[i][j];
+a=i;
+b=j;
+}
+}
+}
+}
+if (min == 9999)
+{
+printf("\\n graph is not connected");
+return;
+}
+printf("\\n edge %d-%d cost=%d", a+1, b+1, min);
+mincost=mincost+min;
+visited[b]=1;
+ne++;
+}
+printf("\\n minimum cost=%d", mincost);
+}
+int main()
+{
+int cost[100][100], i, j, n;
+clrscr();
+printf("\\n enter no of vertices=");
+scanf("%d", &n);
+printf("\\n enter cost matrix (0 for no edge)=");
+for (i=0; i<n; i++)
+{
+for (j=0; j<n; j++)
+{
+scanf("%d", &cost[i][j]);
+}
+}
+prim(cost, n);
+getch();
+return 0;
+}` },
+        8: { aim: "0/1 Knapsack", rawCode: `#include<stdio.h>
+#include<conio.h>
+int max(int a, int b)
+{
+if (a>b)
+return a;
+else
+return b;
+}
+void knapsack(int w[], int p[], int n, int m)
+{
+int v[100][100], i, j;
+for (i=0; i<=n; i++)
+{
+for (j=0; j<=m; j++)
+{
+if (i==0 || j==0)
+v[i][j]=0;
+else if (w[i-1] <= j)
+v[i][j]=max(p[i-1]+v[i-1][j-w[i-1]], v[i-1][j]);
+else
+v[i][j]=v[i-1][j];
+}
+}
+printf("\\n maximum profit=%d", v[n][m]);
+}
+int main()
+{
+int w[100], p[100], n, m, i;
+clrscr();
+printf("\\n enter no of items=");
+scanf("%d", &n);
+printf("\\n enter weights=");
+for (i=0; i<n; i++)
+scanf("%d", &w[i]);
+printf("\\n enter profits=");
+for (i=0; i<n; i++)
+scanf("%d", &p[i]);
+printf("\\n enter capacity=");
+scanf("%d", &m);
+knapsack(w, p, n, m);
+getch();
+return 0;
+}` },
+        9: { aim: "BFS", rawCode: `#include<stdio.h>
+#include<conio.h>
+void bfs(int a[100][100], int n, int start)
+{
+int visited[100], queue[100];
+int front=0, rear=0, i, v;
+for (i=0; i<n; i++)
+visited[i]=0;
+queue[rear++]=start;
+visited[start]=1;
+printf("\\n BFS traversal is: ");
+while (front<rear)
+{
+v=queue[front++];
+printf("%d ", v);
+for (i=0; i<n; i++)
+{
+if (a[v][i] == 1 && visited[i] == 0)
+{
+queue[rear++]=i;
+visited[i]=1;
+}
+}
+}
+}
+int main()
+{
+int a[100][100], n, i, j, start;
+clrscr();
+printf("\\n enter no of vertices=");
+scanf("%d", &n);
+printf("\\n enter adjacency matrix=");
+for (i=0; i<n; i++)
+{
+for (j=0; j<n; j++)
+{
+scanf("%d", &a[i][j]);
+}
+}
+printf("\\n enter starting vertex=");
+scanf("%d", &start);
+bfs(a, n, start);
+getch();
+return 0;
+}` },
+        10: { aim: "DFS", rawCode: `#include<stdio.h>
+#include<conio.h>
+int visited[100];
+void dfs(int a[100][100], int n, int v)
+{
+int i;
+visited[v]=1;
+printf("%d ", v);
+for (i=0; i<n; i++)
+{
+if (a[v][i] == 1 && visited[i] == 0)
+dfs(a, n, i);
+}
+}
+int main()
+{
+int a[100][100], n, i, j, start;
+clrscr();
+printf("\\n enter no of vertices=");
+scanf("%d", &n);
+printf("\\n enter adjacency matrix=");
+for (i=0; i<n; i++)
+{
+for (j=0; j<n; j++)
+{
+scanf("%d", &a[i][j]);
+}
+}
+for (i=0; i<n; i++)
+visited[i]=0;
+printf("\\n enter starting vertex=");
+scanf("%d", &start);
+printf("\\n DFS traversal is: ");
+dfs(a, n, start-1);
+getch();
+return 0;
+}` },
+        11: { aim: "Dijkstra", rawCode: `#include<stdio.h>
+#include<conio.h>
+#define INF 9999
+void dijkstra(int cost[100][100], int n, int src)
+{
+int dist[100], visited[100], i, count, min, next;
+for (i=0; i<n; i++)
+{
+dist[i]=cost[src][i];
+visited[i]=0;
+}
+dist[src]=0;
+visited[src]=1;
+count=1;
+while (count<n-1)
+{
+min=INF;
+for (i=0; i<n; i++)
+{
+if (dist[i]<min && !visited[i])
+{
+min=dist[i];
+next=i;
+}
+}
+visited[next]=1;
+for (i=0; i<n; i++)
+{
+if (!visited[i] && (min+cost[next][i] < dist[i]))
+dist[i]=min+cost[next][i];
+}
+count++;
+}
+for (i=0; i<n; i++)
+{
+if (i != src)
+printf("\\n Distance from %d to %d is %d", src+1, i+1, dist[i]);
+}
+}
+int main()
+{
+int cost[100][100], i, j, n, src;
+clrscr();
+printf("\\n enter no of vertices=");
+scanf("%d", &n);
+printf("\\n enter cost matrix (9999 for no edge)=");
+for (i=0; i<n; i++)
+{
+for (j=0; j<n; j++)
+{
+scanf("%d", &cost[i][j]);
+}
+}
+printf("\\n enter source vertex=");
+scanf("%d", &src);
+dijkstra(cost, n, src-1);
+getch();
+return 0;
+}` }
+    };
+
+    // Function to remove comments and clean up formatting
+    function cleanCode(code) {
+        // Remove block comments /* ... */
+        let clean = code.replace(/\/\*[\s\S]*?\*\//g, '');
+        // Remove line comments // ...
+        clean = clean.replace(/\/\/.*$/gm, '');
+        
+        // Split by lines, trim whitespace, and remove empty lines
+        clean = clean.split('\n')
+                     .map(line => line.trim())
+                     .filter(line => line.length > 0)
+                     .join('\n');
+                     
+        return clean;
+    }
+
+    // Render the buttons
+    const container = document.getElementById('button-container');
+    
+    // Loop through all 11 experiments
+    for (let i = 1; i <= 11; i++) {
+        if (!practicalsData[i]) continue;
+
+        const btn = document.createElement('button');
+        btn.className = 'copy-btn';
+        btn.innerHTML = `Exp ${i}<span class="small">${practicalsData[i].aim}</span>`;
+        
+        // The Click Event: Cleans code and copies immediately
+        btn.onclick = async () => {
+            const codeToCopy = cleanCode(practicalsData[i].rawCode);
+            
+            try {
+                await navigator.clipboard.writeText(codeToCopy);
+                
+                // Visual feedback on the button
+                btn.classList.add('copied');
+                const originalHTML = btn.innerHTML;
+                btn.innerHTML = `Copied!<span class="small">Exp ${i}</span>`;
+                
+                // Show the toast notification
+                showToast(`Experiment ${i} code copied!`);
+
+                // Reset button after 2 seconds
+                setTimeout(() => {
+                    btn.classList.remove('copied');
+                    btn.innerHTML = originalHTML;
+                }, 2000);
+
+            } catch (err) {
+                alert("Failed to copy code. Your browser might require HTTPS for clipboard access.");
+            }
+        };
+
+        container.appendChild(btn);
+    }
+
+    // Toast notification function
+    function showToast(message) {
+        const toast = document.getElementById("toast");
+        toast.textContent = message;
+        toast.className = "show";
+        
+        setTimeout(function(){ 
+            toast.className = toast.className.replace("show", ""); 
+        }, 2500);
+    }
+</script>
+
+</body>
+</html>
