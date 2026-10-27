@@ -1,564 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <title>Python Practicals | Yaser Mukadam (Roll 08)</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      background: #f4f7fc;
-      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-      padding: 1.2rem;
-    }
-
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .header {
-      text-align: center;
-      margin-bottom: 1.5rem;
-    }
-
-    .header h1 {
-      font-size: 1.4rem;
-      font-weight: 700;
-      background: linear-gradient(135deg, #0f2b3d, #1e4a6e);
-      background-clip: text;
-      -webkit-background-clip: text;
-      color: transparent;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .header p {
-      font-size: 0.7rem;
-      color: #2c3e50;
-      background: #e9edf2;
-      display: inline-block;
-      padding: 0.2rem 0.9rem;
-      border-radius: 30px;
-      margin-top: 0.3rem;
-    }
-
-    .micro-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-      gap: 0.6rem;
-      margin-top: 1rem;
-    }
-
-    .micro-btn {
-      background: white;
-      border: 1px solid #cbd5e1;
-      border-radius: 1.2rem;
-      padding: 0.5rem 0.3rem;
-      cursor: pointer;
-      transition: all 0.15s ease;
-      font-family: inherit;
-      text-align: center;
-      box-shadow: 0 1px 2px rgba(0,0,0,0.02);
-    }
-
-    .micro-btn:hover {
-      background: #eef2ff;
-      border-color: #3b82f6;
-      transform: translateY(-1px);
-      box-shadow: 0 3px 8px rgba(0,0,0,0.05);
-    }
-
-    .micro-btn:active {
-      transform: translateY(1px);
-    }
-
-    .prac-num {
-      font-size: 0.7rem;
-      font-weight: 700;
-      color: #2563eb;
-      background: #eef2ff;
-      display: inline-block;
-      padding: 0.1rem 0.5rem;
-      border-radius: 30px;
-      letter-spacing: 0.2px;
-    }
-
-    .prac-name {
-      font-size: 0.7rem;
-      font-weight: 600;
-      color: #0f172a;
-      margin-top: 0.25rem;
-      white-space: nowrap;
-      overflow-x: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .copy-badge {
-      font-size: 0.55rem;
-      color: #3b82f6;
-      margin-top: 0.2rem;
-      display: flex;
-      justify-content: center;
-      gap: 3px;
-      align-items: center;
-    }
-
-    .toast {
-      position: fixed;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%) scale(0.95);
-      background: #0f172ad9;
-      backdrop-filter: blur(12px);
-      color: white;
-      padding: 0.4rem 1rem;
-      border-radius: 40px;
-      font-size: 0.7rem;
-      font-weight: 500;
-      z-index: 1000;
-      opacity: 0;
-      transition: opacity 0.2s, transform 0.2s;
-      pointer-events: none;
-      white-space: nowrap;
-    }
-
-    footer {
-      text-align: center;
-      margin-top: 2rem;
-      font-size: 0.65rem;
-      color: #5b6e8c;
-      border-top: 1px solid #cbd5e180;
-      padding-top: 1rem;
-    }
-
-    @media (max-width: 640px) {
-      .micro-grid {
-        grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
-        gap: 0.5rem;
-      }
-      .prac-name {
-        font-size: 0.65rem;
-        white-space: normal;
-        word-break: keep-all;
-      }
-    }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Full Stack Java Programming – One-Click Copy</title>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;background:#fff;color:#111;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:900px;margin:0 auto;padding:20px 14px 40px}
+h1{font-size:1.15rem;margin:0 0 4px}
+p.sub{margin:0 0 14px;color:#666;font-size:.82rem}
+h2{font-size:.85rem;margin:14px 0 6px;color:#333}
+.row{display:flex;flex-wrap:wrap;gap:6px}
+button.item{background:#fff;color:#111;border:1px solid #ccc;border-radius:6px;padding:5px 10px;font:inherit;font-size:.8rem;line-height:1.2;cursor:pointer}
+button.item:hover{background:#f3f3f3;border-color:#888}
+button.item:active{background:#e8e8e8}
+button.item.done{background:#e8f7ec;border-color:#2e9e4f;color:#1b6b34}
+#toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:#111;color:#fff;padding:7px 14px;border-radius:6px;font-size:.8rem;opacity:0;pointer-events:none;transition:opacity .2s}
+#toast.show{opacity:1}
+</style>
 </head>
 <body>
-<div class="container">
-  <div class="header">
-    <h1>🐍 Yaser Mukadam · Roll 08 · tiny codes</h1>
-    <p>📋 11 practicals — one click copy (exact PDF code, cleaned)</p>
-  </div>
-
-  <div class="micro-grid" id="microGrid"></div>
-  <footer>
-    ✅ each button copies full runnable Python code · student name: Yaser Mukadam, Roll No: 08
-  </footer>
-</div>
-<div id="toastMsg" class="toast">📋 copied!</div>
-
+<main>
+<h1>Full Stack Java Programming</h1>
+<p class="sub">Click a file to copy its code.</p>
+<div id="root"></div>
+</main>
+<div id="toast"></div>
 <script>
-  // ==============================================================
-  // EXACT CODE FROM PDF — all occurrences of student name replaced with "Yaser Mukadam"
-  // and roll number replaced with "08" (Batch/Branch info preserved as in original)
-  // ==============================================================
-  const practicals = [
-    {
-      id: 1,
-      shortName: "Arithmetic",
-      code: `import datetime
+var DATA = [{"title": "Exp 1 – Classes and Objects with Looping and Branching", "files": [{"name": "TestRectangle.java", "code": "class Rectangle\n{\n    int length;\n    int width;\n    void insert(int l, int w)\n    {\n        length=l;\n        width=w;\n    }\n    void calculate()\n    {\n        System.out.println(length * width);\n    }\n}\npublic class TestRectangle\n{\n    public static void main(String args[])\n    {\n        Rectangle R1 = new Rectangle();\n        Rectangle R2 = new Rectangle();\n        R1.insert(11,5);\n        R2.insert(3,15);\n        R1.calculate();\n        R2.calculate();\n    }\n}\n"}, {"name": "Loop + branch snippet", "code": "int n = 5;\nfor (int i = 1; i <= n; i++)\n{\n    if (i % 2 == 0)\n        System.out.println(i + \" is even\");\n    else\n        System.out.println(i + \" is odd\");\n}\n"}]}, {"title": "Exp 2 – Method and Constructor Overloading", "files": [{"name": "TestSavingsAccount.java", "code": "class SavingsAccount\n{\n    double balance;\n    double interest;\n    public SavingsAccount()\n    {\n        balance=0;\n        interest=0;\n    }\n    public SavingsAccount(double Bal, double Int)\n    {\n        balance=Bal;\n        interest=Int;\n    }\n    public void deposite(double amt)\n    {\n        balance+=amt;\n    }\n    public void withdraw(double amt)\n    {\n        if(amt<=balance)\n        {\n            balance-=amt;\n        }\n        else\n        {\n            System.out.println(\"Insufficient funds\");\n        }\n    }\n    public void addinterest()\n    {\n        balance+=balance*(interest/100);\n    }\n    public double getBalance()\n    {\n        return balance;\n    }\n}\npublic class TestSavingsAccount\n{\n    public static void main(String args[])\n    {\n        SavingsAccount sa = new SavingsAccount(1000,10);\n        sa.withdraw(198);\n        sa.deposite(649);\n        sa.addinterest();\n        System.out.println(\"Final Balance=\" +sa.getBalance());\n    }\n}\n"}, {"name": "Addition.java", "code": "class Addition\n{\n    void add(int a, int b)\n    {\n        int c;\n        c=a+b;\n        System.out.println(\"The two nos. addition=\" + c);\n    }\n    void add(int a, int b, int c)\n    {\n        int d;\n        d=a+b+c;\n        System.out.println(\"The three nos. addition=\" + d);\n    }\n    public static void main(String args[])\n    {\n        Addition a = new Addition();\n        a.add(9,33);\n        a.add(4,95,695);\n    }\n}\n"}]}, {"title": "Exp 3 – Inheritance and Exception Handling", "files": [{"name": "Class3.java", "code": "class A\n{\n    private int i;\n    private String s;\n    public A()\n    {\n        System.out.println(\"Inside Default Constructor of A\");\n    }\n    public void setI(int i)\n    {\n        this.i = i;\n    }\n    public void setS(String s)\n    {\n        this.s = s;\n    }\n    public int getI()\n    {\n        return i;\n    }\n    public String getS()\n    {\n        return s;\n    }\n    public void display()\n    {\n        System.out.println(\"display function Inside class A\");\n    }\n}\nclass B extends A\n{\n    public B()\n    {\n        System.out.println(\"Inside Default Constructor of B\");\n    }\n    public void display()\n    {\n        System.out.println(\"display function Inside class B\");\n    }\n}\nclass C extends B\n{\n    public C()\n    {\n        System.out.println(\"Inside constructor of C\");\n    }\n    public void display()\n    {\n        System.out.println(\"display function Inside class C\");\n    }\n}\ninterface D1\n{\n    public void display1();\n}\ninterface D2\n{\n    public void display2();\n}\nclass D extends A implements D1, D2\n{\n    public void display1()\n    {\n        System.out.println(\"display1 of interface D1\");\n    }\n    public void display2()\n    {\n        System.out.println(\"display2 of interface D2\");\n    }\n}\npublic class Class3\n{\n    public static void main(String arg[])\n    {\n        System.out.println(\"Calling constructor of A\");\n        A a = new A();\n        System.out.println(\"Calling constructor of B\");\n        B b = new B();\n        System.out.println(\"Calling constructor of C\");\n        C c = new C();\n        System.out.println(\"Calling constructor of D\");\n        D d = new D();\n        d.display();\n        d.display1();\n        d.display2();\n        a.setS(\"akshay\");\n        a.setI(12);\n        a.display();\n        b.display();\n        c.display();\n    }\n}\n"}, {"name": "ExceptionDemo.java", "code": "class Division\n{\n    void divide(int a, int b)\n    {\n        try\n        {\n            int result = a / b;\n            System.out.println(\"Result = \" + result);\n        }\n        catch (ArithmeticException e)\n        {\n            System.out.println(\"Error: Division by zero is not allowed.\");\n        }\n    }\n}\npublic class ExceptionDemo\n{\n    public static void main(String[] args)\n    {\n        Division obj = new Division();\n        obj.divide(10, 2);\n        obj.divide(10, 0);\n    }\n}\n"}]}, {"title": "Exp 4 – Generic and HTTP Servlet", "files": [{"name": "FirstServlet.java", "code": "import java.io.*;\nimport javax.servlet.*;\n\npublic class FirstServlet extends GenericServlet\n{\n    public void service(ServletRequest req, ServletResponse resp)\n    throws ServletException, IOException\n    {\n        resp.setContentType(\"text/html\");\n\n        PrintWriter pw = resp.getWriter();\n\n        pw.println(\"<html>\");\n        pw.println(\"<head><title>My first Servlet<\/title><\/head>\");\n        pw.println(\"<body>\");\n        pw.println(\"<h2>Welcome To Servlet World!!!!<\/h2>\");\n        pw.println(\"<\/body>\");\n        pw.println(\"<\/html>\");\n\n        pw.close();\n    }\n}\n"}, {"name": "web.xml", "code": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<web-app xmlns=\"http://xmlns.jcp.org/xml/ns/javaee\"\n         xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n         xsi:schemaLocation=\"http://xmlns.jcp.org/xml/ns/javaee\n                             http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd\"\n         version=\"3.1\">\n\n    <servlet>\n        <servlet-name>FirstServlet<\/servlet-name>\n        <servlet-class>FirstServlet<\/servlet-class>\n    <\/servlet>\n\n    <servlet-mapping>\n        <servlet-name>FirstServlet<\/servlet-name>\n        <url-pattern>/FirstServlet<\/url-pattern>\n    <\/servlet-mapping>\n\n<\/web-app>\n"}]}, {"title": "Exp 5 – Static Website (HTML, CSS, JS)", "files": [{"name": "Webpage.html", "code": "<!DOCTYPE html>\n<html lang=\"en\">\n    <head>\n        <meta charset=\"UTF-8\" name=\"viewport\"/>\n        <title>My Static Website<\/title>\n        <link rel=\"stylesheet\" href=\"style.css\" />\n    <\/head>\n    <body>\n        <header>\n            <h1>Welcome to My Static Website<\/h1>\n            <nav>\n                <ul>\n                    <li><a href=\"#\">Home<\/a><\/li>\n                    <li><a href=\"#\">About<\/a><\/li>\n                    <li><a href=\"#\">Contact<\/a><\/li>\n                <\/ul>\n            <\/nav>\n        <\/header>\n        <main>\n            <section>\n                <h2>Hello, Dear Student!<\/h2>\n                <p>This is a sample static website built using HTML, CSS, and JavaScript.<\/p>\n                <button onClick=\"showMessage()\">Click Me<\/button>\n                <p id=\"message\"><\/p>\n            <\/section>\n        <\/main>\n\n        <footer>\n            <p>&copy; 2025 Full Stack Java Syllabus Setter<\/p>\n        <\/footer>\n\n        <script src=\"script.js\"><\/script>\n    <\/body>\n<\/html>\n"}, {"name": "style.css", "code": "body\n{\n    font-family: Arial, sans-serif;\n    margin: 0;\n    padding: 0;\n    background-color: #f9f9f9;\n    color: #333;\n}\n\nheader\n{\n    background-color: #007acc;\n    color: white;\n    padding: 20px;\n    text-align: center;\n}\n\nnav ul\n{\n    list-style: none;\n    padding: 0;\n    display: flex;\n    justify-content: center;\n    margin-top: 10px;\n}\n\nnav li\n{\n    margin: 0 15px;\n}\n\nnav a\n{\n    color: white;\n    text-decoration: none;\n    font-weight: bold;\n}\n\nmain\n{\n    padding: 20px;\n    text-align: center;\n}\n\nbutton\n{\n    padding: 10px 20px;\n    font-size: 16px;\n    cursor: pointer;\n}\n\nfooter\n{\n    background-color: #eee;\n    text-align: center;\n    padding: 15px;\n    margin-top: 40px;\n}\n"}, {"name": "script.js", "code": "function showMessage()\n{\n    const message = document.getElementById(\"message\");\n    message.textContent = \"Thank you for clicking! Enjoy browsing \";\n}\n"}]}, {"title": "Exp 6 – JavaScript Email Validation", "files": [{"name": "webpage1.html", "code": "<!DOCTYPE html>\n<html lang=\"en\">\n    <head>\n        <meta charset=\"UTF-8\" />\n        <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"/>\n        <title>Email Validation<\/title>\n        <link rel=\"stylesheet\" href=\"style.css\" />\n    <\/head>\n    <body>\n        <header>\n            <h1>Welcome to My Static Website<\/h1>\n            <nav>\n                <ul>\n                    <li><a href=\"#\">Home<\/a><\/li>\n                    <li><a href=\"#\">About<\/a><\/li>\n                    <li><a href=\"#\">Contact<\/a><\/li>\n                <\/ul>\n            <\/nav>\n        <\/header>\n        <main>\n            <section>\n                <h2>Hello, Dear Students!<\/h2>\n                <p>This is a sample static website built using HTML, CSS, and JavaScript.<\/p>\n                <button onclick=\"showMessage()\">Click Me<\/button>\n                <p id=\"message\"><\/p>\n                <h3>Subscribe to our Newsletter<\/h3>\n                <input type=\"text\" id=\"email\" placeholder=\"Enter your email\" />\n                <button onclick=\"validateEmail()\">Submit<\/button>\n            <\/section>\n        <\/main>\n\n        <footer>\n            <p>&copy; 2025 FullStackJavaSyllabusSetter<\/p>\n        <\/footer>\n\n        <script src=\"script.js\"><\/script>\n    <\/body>\n<\/html>\n"}, {"name": "style1.css", "code": "body\n{\n    font-family: Arial, sans-serif;\n    margin: 0;\n    padding: 0;\n    background-color: #f9f9f9;\n    color: #333;\n}\n\nheader\n{\n    background-color: #007acc;\n    color: white;\n    padding: 20px;\n    text-align: center;\n}\n\nnav ul\n{\n    list-style: none;\n    padding: 0;\n    display: flex;\n    justify-content: center;\n    margin-top: 10px;\n}\n\nnav li\n{\n    margin: 0 15px;\n}\n\nnav a\n{\n    color: white;\n    text-decoration: none;\n    font-weight: bold;\n}\n\nmain\n{\n    padding: 20px;\n    text-align: center;\n}\n\nbutton\n{\n    padding: 10px 20px;\n    font-size: 16px;\n    cursor: pointer;\n}\n\nfooter\n{\n    background-color: #eee;\n    text-align: center;\n    padding: 15px;\n    margin-top: 40px;\n}\n"}, {"name": "script1.js", "code": "function showMessage() {\n    const message = document.getElementById(\"message\");\n    message.textContent = \"Thank you for clicking! Enjoy browsing \";\n}\n\nfunction validateEmail() {\n    const emailInput = document.getElementById(\"email\");\n    const email = emailInput.value;\n    if (email.indexOf(\"@\") === -1 || email.indexOf(\".\") === -1) {\n        alert(\"Invalid email address. Please include '@' and '.' characters.\");\n        emailInput.focus();\n        return false;\n    }\n    alert(\"Email is valid!\");\n    return true;\n}\n"}]}, {"title": "Exp 7 – JSP Implicit Objects", "files": [{"name": "First.jsp", "code": "<html>\n    <head>\n        <title>First Program<\/title>\n    <\/head>\n    <body>\n        <h1>Output of JSP file<\/h1>\n\n        <%\n            out.println(\"Hello World\");\n        %>\n\n    <\/body>\n<\/html>\n"}]}];
 
-current_time = datetime.datetime.now()
-print("Name of student: Yaser Mukadam")
-print("Roll no: 08 Batch: D1 Branch: Ai4DS")
-print("Current date and time is:", current_time)
+var toastEl = document.getElementById("toast"), timer;
+function toast(msg) {
+  toastEl.textContent = msg;
+  toastEl.classList.add("show");
+  clearTimeout(timer);
+  timer = setTimeout(function () { toastEl.classList.remove("show"); }, 1600);
+}
 
-num1 = int(input("Enter First number: "))
-num2 = int(input("Enter Second number: "))
+function fallbackCopy(text) {
+  var ta = document.createElement("textarea");
+  ta.value = text;
+  ta.style.position = "fixed";
+  ta.style.opacity = "0";
+  document.body.appendChild(ta);
+  ta.select();
+  var ok = false;
+  try { ok = document.execCommand("copy"); } catch (e) {}
+  document.body.removeChild(ta);
+  return ok;
+}
 
-add = num1 + num2
-dif = num1 - num2
-mul = num1 * num2
-div = num1 / num2
-floor_div = num1 // num2
-power = num1 ** num2
-modulus = num1 % num2
-
-print("1. Addition:")
-print('Sum of', num1, 'and', num2, 'is :', add)
-
-print("2. Subtraction:")
-print('Difference of', num1, 'and', num2, 'is :', dif)
-
-print("3. Multiplication:")
-print('Product of', num1, 'and', num2, 'is :', mul)
-
-print("4. Division:")
-print('Division of', num1, 'and', num2, 'is :', div)
-
-print("5. Floor Division:")
-print('Floor Division of', num1, 'and', num2, 'is :', floor_div)
-
-print("6. Exponent:")
-print('Exponent of', num1, 'and', num2, 'is :', power)
-
-print("7. Modulus:")
-print('Modulus of', num1, 'and', num2, 'is :', modulus)`
-    },
-    {
-      id: 2,
-      shortName: "Even/Odd",
-      code: `import datetime
-
-current_time = datetime.datetime.now()
-print("Name of student: Yaser Mukadam")
-print("Roll no: 08 Batch: D1 Branch: AI&DS")
-print("Current date and time is:", current_time)
-
-while True:
-    number = int(input("Enter a number: "))
-
-    if number % 2 == 0:
-        print(f"{number} is even.")
-    else:
-        print(f"{number} is odd.")
-
-    cont = input("Do you want to check another number? (yes/no): ").strip().lower()
-
-    if cont != 'yes':
-        print("Goodbye!")
-        break`
-    },
-    {
-      id: 3,
-      shortName: "Factorial",
-      code: `import datetime
-
-current_time = datetime.datetime.now()
-print("Name of student: Yaser Mukadam")
-print("Roll no: 08 Batch: D1 Branch: AI&DS")
-print("Current date and time is:", current_time)
-
-while True:
-    num = int(input("Enter the number: "))
-    if num < 0:
-        print("Factorial is not defined for negative numbers.")
-        continue
-    factorial = 1
-    for i in range(1, num + 1):
-        factorial *= i
-    print(f"The factorial of {num} is {factorial}")
-    choice = input("Do you want to check another number? (yes/no): ").strip().lower()
-    if choice not in ['yes', 'y']:
-        print("Goodbye!")
-        break`
-    },
-    {
-      id: 4,
-      shortName: "Prime",
-      code: `import datetime
-
-current_time = datetime.datetime.now()
-print("Name of student: Yaser Mukadam")
-print("Roll no: 08 Batch: D1 Branch: AI&DS")
-print("Current date and time is:", current_time)
-
-def is_prime(number):
-    if number < 2:
-        return False
-    for i in range(2, int(number ** 0.5) + 1):
-        if number % i == 0:
-            return False
-    return True
-
-num = int(input("Enter a number to check if it is prime: "))
-
-if is_prime(num):
-    print(f"{num} is a prime number.")
-else:
-    print(f"{num} is not a prime number.")`
-    },
-    {
-      id: 5,
-      shortName: "Calculator",
-      code: `import datetime
-
-current_time = datetime.datetime.now()
-print("Name of student: Yaser Mukadam")
-print("Roll no: 08 Batch: D1 Branch: AI&DS")
-print("Current date and time is:", current_time)
-
-def add(num1, num2):
-    return num1 + num2
-
-def subtract(num1, num2):
-    return num1 - num2
-
-def multiply(num1, num2):
-    return num1 * num2
-
-def divide(num1, num2):
-    return num1 / num2
-
-print("Please select operation - ")
-print("1. Add")
-print("2. Subtract")
-print("3. Multiply")
-print("4. Divide")
-
-for i in range(4):
-    select = int(input("Select operations form 1, 2, 3, 4: "))
-    number_1 = int(input("Enter first number: "))
-    number_2 = int(input("Enter second number: "))
-
-    if select == 1:
-        print(number_1, "+", number_2, "=", add(number_1, number_2))
-    elif select == 2:
-        print(number_1, "- ", number_2, "=", subtract(number_1, number_2))
-    elif select == 3:
-        print(number_1, "*", number_2, "=", multiply(number_1, number_2))
-    elif select == 4:
-        print(number_1, "/", number_2, "=", divide(number_1, number_2))
-    else:
-        print("Invalid input")`
-    },
-    {
-      id: 6,
-      shortName: "File words",
-      code: `import datetime
-
-current_time = datetime.datetime.now()
-print("Name of student: Yaser Mukadam")
-print("Roll no: 08 Batch: D1 Branch: AI&DS")
-print("Current date and time is:", current_time)
-
-word_length = 4
-with open('abcd.txt', 'r') as file:
-    for line in file:
-        for word in line.split():
-            if len(word) == word_length:
-                print(word)`
-    },
-    {
-      id: 7,
-      shortName: "Validate",
-      code: `import datetime
-import re
-
-current_time = datetime.datetime.now()
-print("Name of student: Yaser Mukadam")
-print("Roll no: 08 Batch: D1 Branch: AI&DS")
-print("Current date and time is:", current_time)
-
-def validate_phone_number(regex, phone_number):
-    match = re.search(regex, phone_number)
-    if match:
-        return True
-    return False
-
-def validate_email(email):
-    pattern = r'^[\\w\\.-]+@[\\w\\.-]+\\.\\w+$'
-    return re.match(pattern, email) is not None
-
-phone = input("Enter phone number: ")
-email = input("Enter email ID: ")
-
-phone_pattern = re.compile(r"(\\+\\d{1,3})?\\s?\\d{1,4}?[\\s.-]?\\d{3}[\\s.-]?\\d{4}")
-print("Phone valid:", validate_phone_number(phone_pattern, phone))
-print("Email valid:", validate_email(email))`
-    },
-    {
-      id: 8,
-      shortName: "Extract emails",
-      code: `import datetime
-import re
-
-current_time = datetime.datetime.now()
-print("Name of student: Yaser Mukadam")
-print("Roll no: 08 Batch: D1 Branch: AI&DS")
-print("Current date and time is:", current_time)
-
-def find_emails(text):
-    patterns = [r'\\S+@\\S+']
-    for pattern in patterns:
-        email_regex = re.compile(pattern)
-        emails = email_regex.findall(text)
-        for email in emails:
-            print(email)
-
-text = "Please send your resumes on Hr@Iwillgetbacktoyou@gmail.com for any business enquiry please mail us on business@enquiry.com and writing.geeksforgeeks.org"
-find_emails(text)`
-    },
-    {
-      id: 9,
-      shortName: "NumPy",
-      code: `import datetime
-import numpy as np
-
-current_time = datetime.datetime.now()
-print("Name of student: Yaser Mukadam")
-print("Roll no: 08 Batch: D1 Branch: AI&DS")
-print("Current date and time is:", current_time)
-
-arr1 = np.array([1, 2, 3, 4, 5])
-print("1D Array:")
-print(arr1)
-
-arr2 = np.array([[1, 2, 3], [4, 5, 6]])
-print("\\n2D Array:")
-print(arr2)
-
-arr3 = np.array([[[1, 2, 3], [4, 5, 6]], [[7, 8, 9], [10, 11, 12]]])
-print("\\n3D Array:")
-print(arr3)
-
-arr = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12])
-newarr2d = arr.reshape(4, 3)
-print("\\nReshaped to 2D:")
-print(newarr2d)
-
-newarr3d = arr.reshape(2, 3, 2)
-print("\\nReshaped to 3D:")
-print(newarr3d)
-
-arr_slice = np.array([1, 2, 3, 4, 5, 6, 7])
-print("\\nSlice [1:5]:", arr_slice[1:5])
-print("Slice [4:]:", arr_slice[4:])
-print("Slice [-3:-1]:", arr_slice[-3:-1])
-
-arr_idx = np.array([1, 2, 3, 4])
-print("\\nFirst element:", arr_idx[0])
-print("Second element:", arr_idx[1])
-print("Third + Fourth:", arr_idx[2] + arr_idx[3])
-
-arr_2d = np.array([[1, 2, 3, 4, 5], [6, 7, 8, 9, 10]])
-print("2nd element on 1st row:", arr_2d[0, 1])
-print("5th element on 2nd row:", arr_2d[1, 4])
-
-arr_3d = np.array([[[1, 2, 3], [4, 5, 6]], [[7, 8, 9], [10, 11, 12]]])
-print("Third element of second array of first array:", arr_3d[0, 1, 2])
-
-arr_last = np.array([[1, 2, 3, 4, 5], [6, 7, 8, 9, 10]])
-print("Last element from 2nd dim:", arr_last[1, -1])`
-    },
-    {
-      id: 10,
-      shortName: "Array Math",
-      code: `import datetime
-import numpy as np
-
-current_time = datetime.datetime.now()
-print("Name of student: Yaser Mukadam")
-print("Roll no: 08 Batch: D1 Branch: AI&DS")
-print("Current date and time is:", current_time)
-
-a = np.array([10,20,30])
-b = np.array([2,4,5])
-
-print("Addition:", np.add(a, b))
-print("Subtraction:", np.subtract(a, b))
-print("Multiplication:", np.multiply(a, b))
-print("Division:", np.divide(a, b))
-
-vect_A = np.array([3, -5, 4])
-vect_B = np.array([2, 6, 5])
-
-print("Dot product:", np.dot(vect_A, vect_B))
-print("Cross product:", np.cross(vect_A, vect_B))`
-    },
-    {
-      id: 11,
-      shortName: "Stats",
-      code: `import datetime
-import numpy as np
-
-current_time = datetime.datetime.now()
-print("Name of student: Yaser Mukadam")
-print("Roll no: 08 Batch: D1 Branch: AI&DS")
-print("Current date and time is:", current_time)
-
-array = np.arange(10)
-print("Array:", array)
-
-print("Mean:", np.mean(array))
-print("Median:", np.median(array))
-print("Standard Deviation:", np.std(array))
-print("Variance:", np.var(array))
-
-x = np.array([1,2,3,4,5])
-y = np.array([2,4,6,8,10])
-
-corr_matrix = np.corrcoef(x,y)
-print("Correlation Coefficient Matrix:")
-print(corr_matrix)`
-    }
-  ];
-
-  // toast
-  const toast = document.getElementById('toastMsg');
-  let toastTimer = null;
-  function showToast(msg = "📋 copied!") {
-    if (toastTimer) clearTimeout(toastTimer);
-    toast.textContent = msg;
-    toast.style.opacity = "1";
-    toast.style.transform = "translateX(-50%) scale(1)";
-    toastTimer = setTimeout(() => {
-      toast.style.opacity = "0";
-      toast.style.transform = "translateX(-50%) scale(0.95)";
-    }, 1300);
+function copy(text) {
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    return navigator.clipboard.writeText(text).then(function () { return true; }, function () { return fallbackCopy(text); });
   }
+  return Promise.resolve(fallbackCopy(text));
+}
 
-  async function copyCode(code, pracId) {
-    try {
-      await navigator.clipboard.writeText(code);
-      showToast(`✅ Prac ${pracId} copied`);
-    } catch (err) {
-      const textarea = document.createElement('textarea');
-      textarea.value = code;
-      document.body.appendChild(textarea);
-      textarea.select();
-      document.execCommand('copy');
-      document.body.removeChild(textarea);
-      showToast(`📋 Prac ${pracId} copied`);
-    }
-  }
-
-  const microGrid = document.getElementById('microGrid');
-  practicals.forEach(prac => {
-    const btn = document.createElement('button');
-    btn.className = 'micro-btn';
-    
-    const numSpan = document.createElement('div');
-    numSpan.className = 'prac-num';
-    numSpan.textContent = `#${prac.id}`;
-    
-    const nameSpan = document.createElement('div');
-    nameSpan.className = 'prac-name';
-    nameSpan.textContent = prac.shortName;
-    
-    const copySpan = document.createElement('div');
-    copySpan.className = 'copy-badge';
-    copySpan.innerHTML = `📋 copy`;
-    
-    btn.appendChild(numSpan);
-    btn.appendChild(nameSpan);
-    btn.appendChild(copySpan);
-    
-    btn.addEventListener('click', (e) => {
-      e.preventDefault();
-      copyCode(prac.code, prac.id);
+var root = document.getElementById("root");
+DATA.forEach(function (g) {
+  var h = document.createElement("h2");
+  h.textContent = g.title;
+  root.appendChild(h);
+  var row = document.createElement("div");
+  row.className = "row";
+  g.files.forEach(function (f) {
+    var b = document.createElement("button");
+    b.className = "item";
+    b.type = "button";
+    b.textContent = f.name;
+    b.addEventListener("click", function () {
+      copy(f.code).then(function (ok) {
+        if (ok) {
+          b.classList.add("done");
+          toast("Copied: " + f.name);
+          setTimeout(function () { b.classList.remove("done"); }, 1500);
+        } else {
+          toast("Copy failed - allow clipboard access");
+        }
+      });
     });
-    
-    microGrid.appendChild(btn);
+    row.appendChild(b);
   });
+  root.appendChild(row);
+});
 </script>
 </body>
 </html>
